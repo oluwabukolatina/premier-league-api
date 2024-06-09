@@ -17,8 +17,8 @@ const FixtureService = {
     if (fixture) return fixture;
     throw new NotFoundError(TEAM_NOT_FOUND);
   },
-  async getAll() {
-    return FixtureRepository.getAll();
+  async getAll(query?: type.FindFixtureInterface) {
+    return FixtureRepository.getAll(query);
   },
 
   async handleGenerateLinks(awayTeam: string, homeTeam: string) {

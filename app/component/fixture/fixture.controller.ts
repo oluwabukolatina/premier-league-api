@@ -52,9 +52,16 @@ class FixtureController {
     });
   };
 
+  public getCompleted = async (request: Request, response: Response) => {
+    const fixtures = await FixtureService.getAll({ completed: true });
+    return ResponseHandler.OkResponse(response, 'fetched fixture', {
+      fixtures,
+    });
+  };
+
   public getAll = async (request: Request, response: Response) => {
     const fixtures = await FixtureService.getAll();
-    return ResponseHandler.OkResponse(response, 'fetched fixture', {
+    return ResponseHandler.OkResponse(response, 'fetched completed fixture', {
       fixtures,
     });
   };

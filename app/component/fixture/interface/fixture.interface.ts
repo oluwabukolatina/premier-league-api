@@ -18,10 +18,12 @@ export interface CreateFixtureInterface {
   date: string;
   uniqueLink: string;
 }
-export interface FindFixtureInterface {
+type FindInterface = {
   uniqueLink?: string;
   _id?: FindFixtureInterface['_id'];
-}
+};
+
+export type FindFixtureInterface = FindInterface | UnknownInterface;
 
 export interface UpdateFixtureInterface {
   awayTeam?: TeamInterface['_id'] | UnknownInterface;

@@ -1,5 +1,6 @@
 import * as type from '../interface/fixture.interface';
 import FixtureModel from './fixture.model';
+import { FindFixtureInterface } from '../interface/fixture.interface';
 
 class FixtureRepository {
   public static async create(data: type.CreateFixtureInterface) {
@@ -18,9 +19,9 @@ class FixtureRepository {
     }
   }
 
-  public static async getAll() {
+  public static async getAll(query: FindFixtureInterface) {
     try {
-      return FixtureModel.find()
+      return FixtureModel.find(query)
         .populate('homeTeam', '-_id name stadium')
         .populate('awayTeam', '-_id name stadium');
     } catch (e) {

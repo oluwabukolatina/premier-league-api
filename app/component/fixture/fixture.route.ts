@@ -4,7 +4,8 @@ import * as url from './fixture.url';
 import { asyncHandler } from '../../middleware/async-handler';
 import FixtureValidation from './fixture.validation';
 import checkAuthorization from '../../middleware/check-authorization';
-
+import requireAuth from '../../middleware/require-auth';
+//
 class FixtureRoute {
   public fixtureController: FixtureController = new FixtureController();
 
@@ -22,6 +23,12 @@ class FixtureRoute {
         asyncHandler(FixtureValidation.validateEditOrRemoveOrViewFixture),
         asyncHandler(checkAuthorization),
         asyncHandler(this.fixtureController.edit),
+      );
+    app
+      .route(`${url.GET_COMPLETED_FIXTURES}`)
+      .get(
+        asyncHandler(requireAuth),
+        asyncHandler(this.fixtureController.getCompleted),
       );
     app
       .route(`${url.GET_FIXTURE}s`)
