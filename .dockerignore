@@ -1,0 +1,12 @@
+# flyctl launch added from .gitignore
+node_modules
+**/npm-debug.log
+*.env
+.idea
+debug.log
+**/package-lock.json
+**/logs
+dist
+**/note.txt
+**/todo.txt
+fly.toml

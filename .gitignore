@@ -1,0 +1,15 @@
+/node_modules
+npm-debug.log
+.DS_Store
+/*.env
+/build
+/.idea
+/debug.log
+package-lock.json
+coverage
+logs
+/dist
+note.txt
+todo.txt
+.vscode
+.idea
