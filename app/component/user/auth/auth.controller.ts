@@ -4,7 +4,7 @@ import AuthService from './auth.service';
 import ResponseHandler from '../../../lib/response-handler';
 
 class AuthController {
-  public signInAdmin = async (request: Request, response: Response) => {
+  public signIn = async (request: Request, response: Response) => {
     const result = await AuthService.login({
       email: request.body.email,
       password: request.body.password,
@@ -29,6 +29,21 @@ class AuthController {
       response,
       StatusCodes.CREATED,
       'admin created',
+    );
+  };
+
+  public signUpUser = async (request: Request, response: Response) => {
+    await AuthService.createUser({
+      email: request.body.email,
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
+      password: request.body.password,
+      role: 'USER',
+    });
+    return ResponseHandler.SuccessResponse(
+      response,
+      StatusCodes.CREATED,
+      'user created',
     );
   };
 }
