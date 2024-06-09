@@ -5,8 +5,7 @@ import { asyncHandler } from '../../middleware/async-handler';
 import FixtureValidation from './fixture.validation';
 import checkAuthorization from '../../middleware/check-authorization';
 import requireAuth from '../../middleware/require-auth';
-import { GET_PENDING_FIXTURES } from './fixture.url';
-/// /     View Pending Fixtures: Users should be logged in to view pending fixtures.
+
 class FixtureRoute {
   public fixtureController: FixtureController = new FixtureController();
 
@@ -56,6 +55,9 @@ class FixtureRoute {
         asyncHandler(checkAuthorization),
         asyncHandler(this.fixtureController.remove),
       );
+    app
+      .route(`${url.SEARCH_FIXTURES}`)
+      .get(asyncHandler(this.fixtureController.search));
   };
 }
 

@@ -5,12 +5,13 @@ import TeamService from '../team/team.service';
 import FixtureService from './fixture.service';
 import SharedHelper from '../../lib/shared.helper';
 import ResponseHandler from '../../lib/response-handler';
+import { TeamInterface } from '../team/interface/team.interface';
 
 const { ObjectId } = Types;
 
 class FixtureController {
   public create = async (request: Request, response: Response) => {
-    const { date } = request.body;
+    const { date, stadium } = request.body;
     const awayTeam = request.body.awayTeam.trim();
     const homeTeam = request.body.homeTeam.trim();
     if (awayTeam === homeTeam)
@@ -23,6 +24,7 @@ class FixtureController {
           homeTeam,
           awayTeam,
           date: SharedHelper.formatDateToIso(date),
+          stadium,
           uniqueLink: await FixtureService.handleGenerateLinks(
             awayTeam,
             homeTeam,
@@ -89,6 +91,38 @@ class FixtureController {
       isRemoved: true,
     });
     return ResponseHandler.OkResponse(response, 'fixture removed successfully');
+  };
+
+  public search = async (request: Request, response: Response) => {
+    if (!request.query.query)
+      throw new ClientError('query to search with is required');
+    const { query } = request.query;
+    const regex = new RegExp(query as string, 'i');
+    const result = await TeamService.getAll({ name: regex });
+    const matchingTeams = result.map((one: TeamInterface) => {
+      return { _id: one._id };
+    });
+    const searchQuery = {
+      $or: [
+        {
+          homeTeam: {
+            $in: matchingTeams.map((team: TeamInterface) => team._id),
+          },
+        },
+        {
+          awayTeam: {
+            $in: matchingTeams.map((team: TeamInterface) => team._id),
+          },
+        },
+        { stadium: regex },
+      ],
+    };
+    const fixtures = await FixtureService.getAll(searchQuery);
+    return ResponseHandler.OkResponse(
+      response,
+      'fetched fixtures successfully',
+      { fixtures },
+    );
   };
 }
 

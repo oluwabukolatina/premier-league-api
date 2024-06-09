@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import TeamService from './team.service';
 import SharedHelper from '../../lib/shared.helper';
 import ResponseHandler from '../../lib/response-handler';
+import { ClientError } from '../../exception/client.error';
 
 const { ObjectId } = Types;
 class TeamController {
@@ -50,6 +51,22 @@ class TeamController {
       isRemoved: true,
     });
     return ResponseHandler.OkResponse(response, 'team removed successfully');
+  };
+
+  public search = async (request: Request, response: Response) => {
+    if (!request.query.query) throw new ClientError('query is required');
+    const { query } = request.query;
+    const searchQuery = {
+      $or: [
+        { name: new RegExp(query as string, 'i') },
+        { manager: new RegExp(query as string, 'i') },
+        { stadium: new RegExp(query as string, 'i') },
+      ],
+    };
+    const teams = await TeamService.getAll(searchQuery);
+    return ResponseHandler.OkResponse(response, 'team removed successfully', {
+      teams,
+    });
   };
 }
 

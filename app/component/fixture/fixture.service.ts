@@ -5,8 +5,6 @@ import { TEAM_NOT_FOUND } from '../team/team.message';
 import SharedHelper from '../../lib/shared.helper';
 import EnvHelper from '../../config/env.helper';
 import { GET_FIXTURE } from './fixture.url';
-import TeamRepository from '../team/repository/team.repository';
-import { UpdateFixtureInterface } from './interface/fixture.interface';
 
 const FixtureService = {
   async create(data: type.CreateFixtureInterface) {
@@ -23,7 +21,6 @@ const FixtureService = {
 
   async handleGenerateLinks(awayTeam: string, homeTeam: string) {
     const random = SharedHelper.randomString(8, `${awayTeam}${homeTeam}`);
-
     const uniqueLink = `${EnvHelper.getAppUrl()}${GET_FIXTURE}?uniqueLink=${random}`;
     const find = await this.find({ uniqueLink });
     if (find) {

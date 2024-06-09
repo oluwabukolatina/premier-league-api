@@ -14,11 +14,15 @@ export interface CreateTeamInterface {
   name: string;
   stadium: string;
 }
-export interface FindTeamInterface {
+interface FindInterface {
   _id?: TeamInterface['_id'];
-  name?: string;
+  name?: string | RegExp;
   isRemoved?: boolean;
 }
+interface MultiFindInterface {
+  $or: ({ name: RegExp } | { manager: RegExp } | { stadium: RegExp })[];
+}
+export type FindTeamInterface = FindInterface | MultiFindInterface;
 export interface UpdateTeamInterface {
   isRemoved?: boolean;
   manager?: string;

@@ -13,9 +13,10 @@ export interface FixtureInterface {
   uniqueLink: string;
 }
 export interface CreateFixtureInterface {
-  homeTeam: string;
   awayTeam: string;
   date: string;
+  homeTeam: string;
+  stadium: string;
   uniqueLink: string;
 }
 type FindInterface = {
@@ -23,7 +24,18 @@ type FindInterface = {
   _id?: FindFixtureInterface['_id'];
 };
 
-export type FindFixtureInterface = FindInterface | UnknownInterface;
+interface MultiFindInterface {
+  $or: (
+    | { homeTeam: TeamInterface['_id'][] }
+    | { awayTeam: TeamInterface['_id'][] }
+    | { stadium: RegExp }
+  )[];
+}
+
+export type FindFixtureInterface =
+  | FindInterface
+  | MultiFindInterface
+  | UnknownInterface;
 
 export interface UpdateFixtureInterface {
   awayTeam?: TeamInterface['_id'] | UnknownInterface;

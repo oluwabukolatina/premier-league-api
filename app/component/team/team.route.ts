@@ -42,6 +42,9 @@ class TeamRoute {
         asyncHandler(checkAuthorization),
         asyncHandler(this.teamController.remove),
       );
+    app
+      .route(`${url.SEARCH_FOR_TEAM}`)
+      .get(asyncHandler(this.teamController.search));
   };
 }
 
