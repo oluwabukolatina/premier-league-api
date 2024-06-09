@@ -25,11 +25,7 @@ class AuthController {
       password: request.body.password,
       role: 'ADMIN',
     });
-    return ResponseHandler.SuccessResponse(
-      response,
-      StatusCodes.CREATED,
-      'admin created',
-    );
+    return ResponseHandler.CreatedResponse(response, 'admin created');
   };
 
   public signUpUser = async (request: Request, response: Response) => {
@@ -40,11 +36,7 @@ class AuthController {
       password: request.body.password,
       role: 'USER',
     });
-    return ResponseHandler.SuccessResponse(
-      response,
-      StatusCodes.CREATED,
-      'user created',
-    );
+    return ResponseHandler.CreatedResponse(response, 'user created');
   };
 }
 export default AuthController;

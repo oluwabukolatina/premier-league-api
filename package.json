@@ -58,6 +58,7 @@
     "express": "^4.17.1",
     "express-mongo-sanitize": "^2.0.2",
     "express-rate-limit": "^6.4.0",
+    "express-session": "^1.18.0",
     "express-validator": "^7.0.1",
     "express-winston": "^4.0.5",
     "faker": "^5.5.3",
@@ -93,6 +94,7 @@
   "devDependencies": {
     "@types/concurrently": "^6.0.1",
     "@types/debug": "^4.1.5",
+    "@types/express-session": "^1.18.0",
     "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",

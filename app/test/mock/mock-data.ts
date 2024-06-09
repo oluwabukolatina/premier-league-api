@@ -1,13 +1,22 @@
 import request from 'supertest';
 import setupTestDatabase from '../../database/setup-test-database';
 import app from '../../app';
-import { SIGN_UP_USER } from '../../component/user/auth/auth.url';
+import * as url from '../../component/user/auth/auth.url';
+import TestData from '../../lib/test.data';
 
 setupTestDatabase();
 const MockData = {
-  async loginActivatedUser(data: { email: string; password: string }) {
-    const { body } = await request(app).post(SIGN_UP_USER).send(data);
-    return body.data.token;
+  async getSignedUpAdmin() {
+    const data = TestData.registerUserPayload();
+    const { password } = data;
+    await request(app).post(url.SIGN_UP_ADMIN).send(data);
+    return { password, email: data.email };
+  },
+  async getSignedUpuSER() {
+    const data = TestData.registerUserPayload();
+    const { password } = data;
+    await request(app).post(url.SIGN_UP_USER).send(data);
+    return { password, email: data.email };
   },
 };
 export default MockData;

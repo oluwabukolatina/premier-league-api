@@ -15,5 +15,17 @@ const UserMock = {
     });
     return { user, password };
   },
+  async createAdminUser() {
+    const password = FakeData.password();
+    const email = FakeData.email();
+    const { user } = await UserService.create({
+      email,
+      firstName: FakeData.firstName(),
+      lastName: FakeData.firstName(),
+      password: await Hashing.hashValue(password.trim()),
+      role: 'ADMIN',
+    });
+    return { user, password };
+  },
 };
 export default UserMock;
