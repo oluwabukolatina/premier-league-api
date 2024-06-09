@@ -4,10 +4,11 @@ import { FixtureModelInterface } from '../interface/fixture-model.interface';
 
 const FixtureSchema = new Schema(
   {
-    awayTeam: { type: Schema.Types.ObjectId, ref: 'Team', required: true },
+    awayTeam: { type: Schema.Types.ObjectId, ref: 'Team' },
     completed: { type: Boolean, default: false },
-    date: { type: Date, required: true },
-    homeTeam: { type: Schema.Types.ObjectId, ref: 'Team', required: true },
+    date: { type: Date },
+    homeTeam: { type: Schema.Types.ObjectId, ref: 'Team' },
+    isRemoved: Boolean,
     score: {
       awayTeam: { type: Number, default: 0 },
       homeTeam: { type: Number, default: 0 },

@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 
 export interface TeamInterface {
   _id: Types.ObjectId;
+  isRemoved: boolean;
   manager: string;
   name: string;
   numberOfPlayers: string;

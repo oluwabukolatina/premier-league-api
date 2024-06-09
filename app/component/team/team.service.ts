@@ -7,6 +7,10 @@ const TeamService = {
   async create(data: type.CreateTeamInterface) {
     return TeamRepository.create(data);
   },
+  async getAll() {
+    return TeamRepository.getAll();
+  },
+
   async get(data: type.FindTeamInterface, checkStatus?: boolean) {
     const team = await TeamRepository.get(data);
     if (checkStatus) {

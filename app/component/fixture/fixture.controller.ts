@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { Request, Response } from 'express';
+import { ClientError } from '../../exception/client.error';
+import TeamService from '../team/team.service';
 import FixtureService from './fixture.service';
 import SharedHelper from '../../lib/shared.helper';
 import ResponseHandler from '../../lib/response-handler';
-import { ClientError } from '../../exception/client.error';
-import TeamService from '../team/team.service';
 
 const { ObjectId } = Types;
 
@@ -39,15 +39,42 @@ class FixtureController {
     throw new ClientError('away team is not a valid id');
   };
 
-  public remove = async (request: Request, response: Response) => {
-    const team = await FixtureService.get(
-      { _id: ObjectId(request.params.fixture) },
-      true,
+  public edit = async (request: Request, response: Response) => {
+    const fixture = await FixtureService.get({
+      _id: ObjectId(request.params.fixture),
+    });
+    const updatedFixture = await FixtureService.update(
+      fixture._id,
+      request.body,
     );
-    await TeamService.update(team._id, {
+    return ResponseHandler.OkResponse(response, 'fixture edited successfully', {
+      fixture: updatedFixture,
+    });
+  };
+
+  public getAll = async (request: Request, response: Response) => {
+    const fixtures = await FixtureService.getAll();
+    return ResponseHandler.OkResponse(response, 'fetched fixture', {
+      fixtures,
+    });
+  };
+
+  public getOne = async (request: Request, response: Response) => {
+    const fixture = await FixtureService.get({
+      _id: ObjectId(request.params.fixture),
+    });
+
+    return ResponseHandler.OkResponse(response, 'fetched fixture', { fixture });
+  };
+
+  public remove = async (request: Request, response: Response) => {
+    const fixture = await FixtureService.get({
+      _id: ObjectId(request.params.fixture),
+    });
+    await FixtureService.update(fixture._id, {
       isRemoved: true,
     });
-    return ResponseHandler.OkResponse(response, 'team removed successfully');
+    return ResponseHandler.OkResponse(response, 'fixture removed successfully');
   };
 }
 

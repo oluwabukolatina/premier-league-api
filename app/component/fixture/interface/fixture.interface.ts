@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { TeamInterface } from '../../team/interface/team.interface';
 import { UnknownInterface } from '../../../lib/unknown.interface';
 
 export interface FixtureInterface {
@@ -7,6 +8,7 @@ export interface FixtureInterface {
   completed: boolean;
   date: Date;
   homeTeam: string;
+  isRemoved: boolean;
   score: { homeTeam: number; awayTeam: number };
   uniqueLink: string;
 }
@@ -22,7 +24,12 @@ export interface FindFixtureInterface {
 }
 
 export interface UpdateFixtureInterface {
+  awayTeam?: TeamInterface['_id'] | UnknownInterface;
   completed?: boolean;
+  date?: Date;
+  homeTeam?: TeamInterface['_id'] | UnknownInterface;
+  score?: { homeTeam?: number; awayTeam?: number } | UnknownInterface;
   stadium?: boolean;
-  date?: string | Date | UnknownInterface;
+  uniqueLink?: string;
+  isRemoved?: boolean;
 }

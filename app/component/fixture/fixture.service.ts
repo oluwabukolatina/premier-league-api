@@ -1,26 +1,24 @@
+import * as type from './interface/fixture.interface';
 import FixtureRepository from './repository/fixture.repository';
-import TeamRepository from '../team/repository/team.repository';
 import { NotFoundError } from '../../exception/not-found.error';
-import { TEAM_HAS_BEEN_REMOVED, TEAM_NOT_FOUND } from '../team/team.message';
+import { TEAM_NOT_FOUND } from '../team/team.message';
 import SharedHelper from '../../lib/shared.helper';
 import EnvHelper from '../../config/env.helper';
 import { GET_FIXTURE } from './fixture.url';
-import * as type from './interface/fixture.interface';
+import TeamRepository from '../team/repository/team.repository';
+import { UpdateFixtureInterface } from './interface/fixture.interface';
 
 const FixtureService = {
   async create(data: type.CreateFixtureInterface) {
     return FixtureRepository.create(data);
   },
-  async get(data: type.FindFixtureInterface, checkStatus?: boolean) {
-    const team = await FixtureRepository.get(data);
-    if (checkStatus) {
-      if (team) {
-        if (team.isRemoved) throw new NotFoundError(TEAM_HAS_BEEN_REMOVED);
-        return team;
-      }
-      throw new NotFoundError(TEAM_NOT_FOUND);
-    }
-    return team;
+  async get(data: type.FindFixtureInterface) {
+    const fixture = await FixtureRepository.get(data);
+    if (fixture) return fixture;
+    throw new NotFoundError(TEAM_NOT_FOUND);
+  },
+  async getAll() {
+    return FixtureRepository.getAll();
   },
 
   async handleGenerateLinks(awayTeam: string, homeTeam: string) {
@@ -36,6 +34,12 @@ const FixtureService = {
   },
   async find(params: type.FindFixtureInterface) {
     return FixtureRepository.get(params);
+  },
+  async update(
+    team: type.FixtureInterface['_id'],
+    data: type.UpdateFixtureInterface,
+  ) {
+    return FixtureRepository.update(team, data);
   },
 };
 export default FixtureService;

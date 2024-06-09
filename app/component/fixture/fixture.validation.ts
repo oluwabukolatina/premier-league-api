@@ -17,7 +17,7 @@ const FixtureValidation = {
     });
     return AppValidation.bodyBaseValidator(schema, request, response, next);
   },
-  async validateEditOrRemoveTFixture(
+  async validateEditOrRemoveOrViewFixture(
     request: Request,
     response: Response,
     next: NextFunction,

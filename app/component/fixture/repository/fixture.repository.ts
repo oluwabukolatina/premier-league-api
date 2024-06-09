@@ -18,6 +18,16 @@ class FixtureRepository {
     }
   }
 
+  public static async getAll() {
+    try {
+      return FixtureModel.find()
+        .populate('homeTeam', '-_id name stadium')
+        .populate('awayTeam', '-_id name stadium');
+    } catch (e) {
+      return e;
+    }
+  }
+
   public static async update(
     team: type.FixtureInterface['_id'],
     params: type.UpdateFixtureInterface,

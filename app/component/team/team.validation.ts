@@ -17,7 +17,7 @@ const TeamValidation = {
     });
     return AppValidation.bodyBaseValidator(schema, request, response, next);
   },
-  async validateEditOrRemoveTeam(
+  async validateEditOrRemoveOrViewTeam(
     request: Request,
     response: Response,
     next: NextFunction,

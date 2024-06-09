@@ -19,18 +19,25 @@ class TeamRoute {
         asyncHandler(this.teamController.create),
       );
     app
-      .route(`${url.REMOVE_TEAM}:team`)
-      .put(
-        asyncHandler(TeamValidation.validateEditOrRemoveTeam),
-        asyncHandler(checkAuthorization),
-        asyncHandler(this.teamController.remove),
-      );
-    app
       .route(`${url.EDIT_TEAM}:team`)
       .put(
-        asyncHandler(TeamValidation.validateEditOrRemoveTeam),
+        asyncHandler(TeamValidation.validateEditOrRemoveOrViewTeam),
         asyncHandler(checkAuthorization),
         asyncHandler(this.teamController.edit),
+      );
+    app.route(`${url.GET_TEAM}s`).get(asyncHandler(this.teamController.getAll));
+    app
+      .route(`${url.GET_TEAM}/:team`)
+      .get(
+        asyncHandler(TeamValidation.validateEditOrRemoveOrViewTeam),
+        asyncHandler(this.teamController.getOne),
+      );
+    app
+      .route(`${url.REMOVE_TEAM}:team`)
+      .put(
+        asyncHandler(TeamValidation.validateEditOrRemoveOrViewTeam),
+        asyncHandler(checkAuthorization),
+        asyncHandler(this.teamController.remove),
       );
   };
 }

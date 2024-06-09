@@ -10,6 +10,14 @@ class TeamRepository {
     }
   }
 
+  public static async getAll() {
+    try {
+      return TeamModel.find({ isRemoved: true });
+    } catch (e) {
+      return e;
+    }
+  }
+
   public static async get(data: type.FindTeamInterface) {
     try {
       return TeamModel.findOne(data);

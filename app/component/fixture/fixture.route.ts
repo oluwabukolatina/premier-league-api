@@ -2,8 +2,8 @@ import { Application } from 'express';
 import FixtureController from './fixture.controller';
 import * as url from './fixture.url';
 import { asyncHandler } from '../../middleware/async-handler';
-import checkAuthorization from '../../middleware/check-authorization';
 import FixtureValidation from './fixture.validation';
+import checkAuthorization from '../../middleware/check-authorization';
 
 class FixtureRoute {
   public fixtureController: FixtureController = new FixtureController();
@@ -17,18 +17,27 @@ class FixtureRoute {
         asyncHandler(this.fixtureController.create),
       );
     app
-      .route(`${url.REMOVE_FIXTURE}:fixture`)
+      .route(`${url.EDIT_FIXTURE}:fixture`)
       .put(
-        asyncHandler(FixtureValidation.validateEditOrRemoveTFixture),
+        asyncHandler(FixtureValidation.validateEditOrRemoveOrViewFixture),
         asyncHandler(checkAuthorization),
-        asyncHandler(this.fixtureController.remove),
+        asyncHandler(this.fixtureController.edit),
       );
     app
-      .route(`${url.GET_FIXTURE}`)
-      .post(
-        asyncHandler(FixtureValidation.validateCreateFixture),
+      .route(`${url.GET_FIXTURE}s`)
+      .get(asyncHandler(this.fixtureController.getAll));
+    app
+      .route(`${url.GET_FIXTURE}/:fixture`)
+      .get(
+        asyncHandler(FixtureValidation.validateEditOrRemoveOrViewFixture),
+        asyncHandler(this.fixtureController.getOne),
+      );
+    app
+      .route(`${url.REMOVE_FIXTURE}:fixture`)
+      .put(
+        asyncHandler(FixtureValidation.validateEditOrRemoveOrViewFixture),
         asyncHandler(checkAuthorization),
-        asyncHandler(this.fixtureController.create),
+        asyncHandler(this.fixtureController.remove),
       );
   };
 }

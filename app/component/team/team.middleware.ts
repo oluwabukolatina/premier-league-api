@@ -10,7 +10,7 @@ const TeamMiddleware = {
     next: NextFunction,
   ) {
     const team = await TeamService.get({
-      name: SharedHelper.upperCaseTrim(request.body.name),
+      name: SharedHelper.titleCase(request.body.name),
     });
     if (team) throw new ClientError('team already exists');
     return next();

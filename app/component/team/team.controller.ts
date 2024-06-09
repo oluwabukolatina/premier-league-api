@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { Request, Response } from 'express';
 import TeamService from './team.service';
-import ResponseHandler from '../../lib/response-handler';
 import SharedHelper from '../../lib/shared.helper';
+import ResponseHandler from '../../lib/response-handler';
 
 const { ObjectId } = Types;
 class TeamController {
@@ -26,6 +26,19 @@ class TeamController {
     return ResponseHandler.OkResponse(response, 'team edited successfully', {
       team: updatedTeam,
     });
+  };
+
+  public getAll = async (request: Request, response: Response) => {
+    const teams = await TeamService.getAll();
+    return ResponseHandler.OkResponse(response, 'fetched teams', { teams });
+  };
+
+  public getOne = async (request: Request, response: Response) => {
+    const team = await TeamService.get(
+      { _id: ObjectId(request.params.team) },
+      true,
+    );
+    return ResponseHandler.OkResponse(response, 'fetched team', { team });
   };
 
   public remove = async (request: Request, response: Response) => {
