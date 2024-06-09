@@ -59,6 +59,13 @@ class FixtureController {
     });
   };
 
+  public getPending = async (request: Request, response: Response) => {
+    const fixtures = await FixtureService.getAll({ completed: false });
+    return ResponseHandler.OkResponse(response, 'fetched pending fixtures', {
+      fixtures,
+    });
+  };
+
   public getAll = async (request: Request, response: Response) => {
     const fixtures = await FixtureService.getAll();
     return ResponseHandler.OkResponse(response, 'fetched completed fixture', {
