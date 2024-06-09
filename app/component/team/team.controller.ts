@@ -29,7 +29,7 @@ class TeamController {
   };
 
   public getAll = async (request: Request, response: Response) => {
-    const teams = await TeamService.getAll();
+    const teams = await TeamService.getAll({ isRemoved: false });
     return ResponseHandler.OkResponse(response, 'fetched teams', { teams });
   };
 

@@ -27,6 +27,9 @@ class FixtureRoute {
       .route(`${url.GET_FIXTURE}s`)
       .get(asyncHandler(this.fixtureController.getAll));
     app
+      .route(`${url.GET_FIXTURE}s`)
+      .get(asyncHandler(this.fixtureController.getAll));
+    app
       .route(`${url.GET_FIXTURE}/:fixture`)
       .get(
         asyncHandler(FixtureValidation.validateEditOrRemoveOrViewFixture),

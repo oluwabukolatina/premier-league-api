@@ -3,7 +3,6 @@ import AuthController from './auth.controller';
 import * as url from './auth.url';
 import { asyncHandler } from '../../../middleware/async-handler';
 import AuthValidation from './auth.validation';
-import { SIGN_IN_USER } from './auth.url';
 
 class AuthRoute {
   public authController: AuthController = new AuthController();

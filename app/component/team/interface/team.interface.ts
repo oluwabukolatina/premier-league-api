@@ -15,8 +15,9 @@ export interface CreateTeamInterface {
   stadium: string;
 }
 export interface FindTeamInterface {
-  name?: string;
   _id?: TeamInterface['_id'];
+  name?: string;
+  isRemoved?: boolean;
 }
 export interface UpdateTeamInterface {
   isRemoved?: boolean;

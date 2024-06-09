@@ -5,6 +5,7 @@ import { asyncHandler } from '../../middleware/async-handler';
 import checkAuthorization from '../../middleware/check-authorization';
 import TeamValidation from './team.validation';
 import TeamMiddleware from './team.middleware';
+import requireAuth from '../../middleware/require-auth';
 
 class TeamRoute {
   public teamController: TeamController = new TeamController();
@@ -25,7 +26,9 @@ class TeamRoute {
         asyncHandler(checkAuthorization),
         asyncHandler(this.teamController.edit),
       );
-    app.route(`${url.GET_TEAM}s`).get(asyncHandler(this.teamController.getAll));
+    app
+      .route(`${url.GET_TEAM}s`)
+      .get(asyncHandler(requireAuth), asyncHandler(this.teamController.getAll));
     app
       .route(`${url.GET_TEAM}/:team`)
       .get(
