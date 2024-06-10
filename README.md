@@ -35,6 +35,11 @@ There should be:
 Application is deployed on GCP. Use public
 URL [https://premier-league-api-52kstxoqqa-uc.a.run.app/](https://premier-league-api-52kstxoqqa-uc.a.run.app/) with API endpoints.
 
+## API Documentation
+Application is available on postman on [https://documenter.getpostman.com/view/32462468/2sA3XLFjEx/](https://documenter.getpostman.com/view/32462468/2sA3XLFjEx).
+
+
+
 ## Technologies Used
 
 - [Node.js](node) A run time environment based off Chrome's v8 Engines for writing Javascript server-side applications.
