@@ -16,18 +16,18 @@ class TeamRoute {
       .post(
         asyncHandler(TeamValidation.validateCreateTeam),
         asyncHandler(checkAuthorization),
-        asyncHandler(TeamMiddleware.checkIfTeamAlreaxyExists),
+        asyncHandler(TeamMiddleware.checkIfTeamAlreadyExists),
         asyncHandler(this.teamController.create),
       );
     app
       .route(`${url.EDIT_TEAM}:team`)
       .put(
-        asyncHandler(TeamValidation.validateEditOrRemoveOrViewTeam),
         asyncHandler(checkAuthorization),
+        asyncHandler(TeamValidation.validateEditOrRemoveOrViewTeam),
         asyncHandler(this.teamController.edit),
       );
     app
-      .route(`${url.GET_TEAM}s`)
+      .route(`${url.GET_TEAMS}`)
       .get(asyncHandler(requireAuth), asyncHandler(this.teamController.getAll));
     app
       .route(`${url.GET_TEAM}/:team`)

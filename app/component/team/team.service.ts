@@ -1,7 +1,10 @@
 import * as type from './interface/team.interface';
 import TeamRepository from './repository/team.repository';
 import { NotFoundError } from '../../exception/not-found.error';
-import { TEAM_HAS_BEEN_REMOVED, TEAM_NOT_FOUND } from './team.message';
+import {
+  TEAM_HAS_PREVIOUSLY_BEEN_REMOVED,
+  TEAM_NOT_FOUND,
+} from './team.message';
 
 const TeamService = {
   async create(data: type.CreateTeamInterface) {
@@ -15,7 +18,8 @@ const TeamService = {
     const team = await TeamRepository.get(data);
     if (checkStatus) {
       if (team) {
-        if (team.isRemoved) throw new NotFoundError(TEAM_HAS_BEEN_REMOVED);
+        if (team.isRemoved)
+          throw new NotFoundError(TEAM_HAS_PREVIOUSLY_BEEN_REMOVED);
         return team;
       }
       throw new NotFoundError(TEAM_NOT_FOUND);

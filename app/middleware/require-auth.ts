@@ -5,6 +5,7 @@ import ResponseHandler from '../lib/response-handler';
 import * as message from '../component/user/user.message';
 import { UnAuthorizedError } from '../exception/un-authorized.error';
 import Jwt from '../lib/jwt';
+import { AUTH_TOKEN_REQUIRED } from '../component/user/auth/auth.message';
 
 async function checkJwt(
   next: NextFunction,
@@ -38,7 +39,7 @@ async function requireAuth(
   next: NextFunction,
 ) {
   const token = request.header('Authorization');
-  if (!token) throw new UnAuthorizedError('Authorization Required');
+  if (!token) throw new UnAuthorizedError(AUTH_TOKEN_REQUIRED);
   return checkJwt(next, request, response, token);
 }
 

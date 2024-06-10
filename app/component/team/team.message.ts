@@ -1,2 +1,5 @@
 export const TEAM_NOT_FOUND = 'Team does not exist';
-export const TEAM_HAS_BEEN_REMOVED = 'Team HAS BEEN REMOVED ';
+export const TEAM_HAS_PREVIOUSLY_BEEN_REMOVED =
+  'Team Has Previously Been Removed';
+export const TEAM_ALREADY_EXISTS = 'Team Already Exists';
+export const TEAM_INCOREEC_FORM_ID = 'Incorrect Id Format, Kindly Check The Id';

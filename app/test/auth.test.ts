@@ -1,18 +1,18 @@
 import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
-import setupTestDatabase from '../../database/setup-test-database';
-import MockData from '../mock/mock-data';
-import app from '../../app';
-import * as url from '../../component/user/auth/auth.url';
-import TestData from '../../lib/test.data';
-import FakeData from '../../lib/fake-data';
+import setupTestDatabase from '../database/setup-test-database';
+import MockData from './mock/mock-data';
+import app from '../app';
+import * as url from '../component/user/auth/auth.url';
+import TestData from '../lib/test.data';
+import FakeData from '../lib/fake-data';
+import { INCORRECT_CREDENTIALS } from '../component/user/auth/auth.message';
 
 setupTestDatabase();
 describe('auth test', () => {
   let SIGNED_UP_ADMIN_EMAIL = '';
   let SIGNED_UP_ADMIN_PASSWORD = '';
   let SIGNED_UP_USER_EMAIL = '';
-  let SIGNED_UP_USER_PASSWORD = '';
   beforeAll(async () => {
     const { email, password } = await MockData.getSignedUpAdmin();
     SIGNED_UP_ADMIN_EMAIL = email;
@@ -29,8 +29,7 @@ describe('auth test', () => {
     expect(status).toEqual(StatusCodes.CREATED);
     expect(body.status).toEqual(true);
   });
-
-  it('sign in admin', async () => {
+  it('sign in user', async () => {
     const { body, status } = await request(app)
       .post(`${url.SIGN_IN_ADMIN}`)
       .send({
@@ -53,6 +52,18 @@ describe('auth test', () => {
     expect(status).toEqual(StatusCodes.NOT_FOUND);
     expect(body).toHaveProperty('message');
     expect(body.status).toEqual(false);
+  });
+  it('does not sign in with incorrect password', async () => {
+    const { body, status } = await request(app)
+      .post(`${url.SIGN_IN_ADMIN}`)
+      .send({
+        email: SIGNED_UP_USER_EMAIL,
+        password: FakeData.password(),
+      });
+    expect(status).toEqual(StatusCodes.UNAUTHORIZED);
+    expect(body).toHaveProperty('message');
+    expect(body.status).toEqual(false);
+    expect(body.message).toEqual(INCORRECT_CREDENTIALS);
   });
   it('sign up user', async () => {
     const { body, status } = await request(app)

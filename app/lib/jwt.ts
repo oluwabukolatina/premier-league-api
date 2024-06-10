@@ -1,9 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { ClientError } from '../exception/client.error';
+import { UserInterface } from '../component/user/interface/user.interface';
 
 const Jwt = {
-  createToken(payload: any, secret: jwt.Secret, expiry: string) {
-    console.log(payload, 'the payload');
+  createToken(
+    payload: { email: UserInterface['email']; id: UserInterface['_id'] },
+    secret: jwt.Secret,
+    expiry: string,
+  ) {
     return jwt.sign(payload, secret, {
       expiresIn: expiry,
     });

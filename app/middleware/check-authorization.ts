@@ -3,6 +3,11 @@ import { GO_MONEY_JWT_SECRET } from '../config/secrets';
 import { UnAuthorizedError } from '../exception/un-authorized.error';
 import Jwt from '../lib/jwt';
 import UserService from '../component/user/user.service';
+import {
+  AUTH_TOKEN_REQUIRED,
+  INCORECT_AUTH_FORMAT,
+  USER_NOT_AUTHORIZED,
+} from '../component/user/auth/auth.message';
 
 async function checkTheAuthorization(
   next: NextFunction,
@@ -19,11 +24,9 @@ async function checkTheAuthorization(
       email: request.user.email,
     });
     if (user.role === 'ADMIN') return next();
-    throw new UnAuthorizedError('user not authorized for this action');
+    throw new UnAuthorizedError(USER_NOT_AUTHORIZED);
   }
-  throw new UnAuthorizedError(
-    'incorrect format - user must start with Bearer ',
-  );
+  throw new UnAuthorizedError(INCORECT_AUTH_FORMAT);
 }
 async function checkAuthorization(
   request: Request,
@@ -31,10 +34,7 @@ async function checkAuthorization(
   next: NextFunction,
 ) {
   const token = request.header('Authorization');
-  if (!token)
-    throw new UnAuthorizedError(
-      'Authorization Denied: Authentication Token is Required',
-    );
+  if (!token) throw new UnAuthorizedError(AUTH_TOKEN_REQUIRED);
   return checkTheAuthorization(next, request, response, token);
 }
 export default checkAuthorization;
