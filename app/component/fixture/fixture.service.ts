@@ -1,10 +1,11 @@
 import * as type from './interface/fixture.interface';
 import FixtureRepository from './repository/fixture.repository';
 import { NotFoundError } from '../../exception/not-found.error';
-import { TEAM_NOT_FOUND } from '../team/team.message';
+import { FIXTURE_NOT_FOUND } from './fixture.message';
 import SharedHelper from '../../lib/shared.helper';
 import EnvHelper from '../../config/env.helper';
 import { GET_FIXTURE } from './fixture.url';
+import FixtureHelper from './fixture.helper';
 
 const FixtureService = {
   async create(data: type.CreateFixtureInterface) {
@@ -13,15 +14,14 @@ const FixtureService = {
   async get(data: type.FindFixtureInterface) {
     const fixture = await FixtureRepository.get(data);
     if (fixture) return fixture;
-    throw new NotFoundError(TEAM_NOT_FOUND);
+    throw new NotFoundError(FIXTURE_NOT_FOUND);
   },
   async getAll(query?: type.FindFixtureInterface) {
     return FixtureRepository.getAll(query);
   },
 
   async handleGenerateLinks(awayTeam: string, homeTeam: string) {
-    const random = SharedHelper.randomString(8, `${awayTeam}${homeTeam}`);
-    const uniqueLink = `${EnvHelper.getAppUrl()}${GET_FIXTURE}?uniqueLink=${random}`;
+    const uniqueLink = FixtureHelper.generateLink(awayTeam, homeTeam);
     const find = await this.find({ uniqueLink });
     if (find) {
       const newRandom = SharedHelper.randomString(8, `${awayTeam}${homeTeam}`);

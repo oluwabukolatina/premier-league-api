@@ -8,7 +8,7 @@ const FixtureSchema = new Schema(
     completed: { type: Boolean, default: false },
     date: { type: Date },
     homeTeam: { type: Schema.Types.ObjectId, ref: 'Team' },
-    isRemoved: Boolean,
+    removed: Boolean,
     score: {
       awayTeam: { type: Number, default: 0 },
       homeTeam: { type: Number, default: 0 },

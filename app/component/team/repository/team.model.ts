@@ -4,7 +4,7 @@ import { TeamModelInterface } from '../interface/team-model.interface';
 
 const TeamSchema = new Schema(
   {
-    isRemoved: { type: Boolean, default: false },
+    removed: { type: Boolean, default: false },
     manager: String,
     name: String,
     numberOfPlayers: String,

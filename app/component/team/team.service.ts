@@ -18,7 +18,7 @@ const TeamService = {
     const team = await TeamRepository.get(data);
     if (checkStatus) {
       if (team) {
-        if (team.isRemoved)
+        if (team.removed)
           throw new NotFoundError(TEAM_HAS_PREVIOUSLY_BEEN_REMOVED);
         return team;
       }

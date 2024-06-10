@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 
 export interface TeamInterface {
   _id: Types.ObjectId;
-  isRemoved: boolean;
+  removed: boolean;
   manager: string;
   name: string;
   numberOfPlayers: string;
@@ -17,14 +17,14 @@ export interface CreateTeamInterface {
 interface FindInterface {
   _id?: TeamInterface['_id'];
   name?: string | RegExp;
-  isRemoved?: boolean;
+  removed?: boolean;
 }
 interface MultiFindInterface {
   $or: ({ name: RegExp } | { manager: RegExp } | { stadium: RegExp })[];
 }
 export type FindTeamInterface = FindInterface | MultiFindInterface;
 export interface UpdateTeamInterface {
-  isRemoved?: boolean;
+  removed?: boolean;
   manager?: string;
   name?: string;
   numberOfPlayers?: string;

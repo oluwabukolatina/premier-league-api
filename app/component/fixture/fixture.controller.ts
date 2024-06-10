@@ -40,7 +40,6 @@ class FixtureController {
     }
     throw new ClientError('away team is not a valid id');
   };
-
   public edit = async (request: Request, response: Response) => {
     const fixture = await FixtureService.get({
       _id: ObjectId(request.params.fixture),
@@ -88,7 +87,7 @@ class FixtureController {
       _id: ObjectId(request.params.fixture),
     });
     await FixtureService.update(fixture._id, {
-      isRemoved: true,
+      removed: true,
     });
     return ResponseHandler.OkResponse(response, 'fixture removed successfully');
   };

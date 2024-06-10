@@ -1,4 +1,5 @@
 import FakeData from './fake-data';
+import { TeamInterface } from '../component/team/interface/team.interface';
 
 const TestData = {
   registerUserPayload() {
@@ -9,28 +10,43 @@ const TestData = {
       password: FakeData.password(),
     };
   },
-  createTeamPayload(name?: string) {
+  createFixturePayload(
+    awayTeam: TeamInterface['_id'],
+    homeTeam: TeamInterface['_id'],
+  ) {
     return {
-      manager: 'Mikel Arteta',
-      name: name || 'Arsenal',
-      numberOfPlayers: '500',
-      stadium: 'Emirates Stadium',
+      awayTeam,
+      homeTeam,
+      stadium: 'Emirates',
+      date: '2024-09-24 18:45',
     };
   },
-  createManCityTeamPayload() {
+
+  createTeamPayload(name: string) {
+    function getManagerName() {
+      if (name === 'Liverpool') return 'Jurgen Klopp';
+      if (name === 'Tottenham Hotspur') return 'Mauricio Pochettino';
+      if (name === 'Arsenal') return 'Mikel Arteta';
+      if (name === 'Chelsea') return 'Enzo Maresca';
+      if (name === 'Man United') return 'ETH';
+      if (name === 'Aston Villa') return 'Unai Emery';
+      return 'Pep Guardiola';
+    }
+    function getStadium() {
+      if (name === 'Liverpool') return 'Anfield';
+      if (name === 'Tottenham Hotspur') return 'Tottenham Hotspur Stadium';
+      if (name === 'Chelsea') return 'Stamford Bridge';
+      if (name === 'Arsenal') return 'Emirates Stadium';
+      if (name === 'Man United') return 'ETH';
+      if (name === 'Aston Villa') return 'Villa Park';
+      return 'Etihad Stadium';
+    }
+
     return {
-      manager: 'Pep Guardiola',
-      name: 'Manchester City',
+      manager: getManagerName(),
+      name: `${name}`,
       numberOfPlayers: '400',
-      stadium: 'Etihad Stadium',
-    };
-  },
-  createChelseaTeamPayload() {
-    return {
-      manager: 'Mauricio Pochettino',
-      name: 'Chelsea',
-      numberOfPlayers: '400',
-      stadium: 'Stamford Bridge',
+      stadium: getStadium(),
     };
   },
 };

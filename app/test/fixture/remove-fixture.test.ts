@@ -12,7 +12,7 @@ import {
 import { TEAM_INCOREEC_FORM_ID } from '../../component/team/team.message';
 
 setupTestDatabase();
-describe('remove team', () => {
+describe('remove fixture', () => {
   let ADMIN_TOKEN = '';
   let USER_TOKEN = '';
   let TEAM_ID = '';
@@ -21,17 +21,17 @@ describe('remove team', () => {
     ADMIN_TOKEN = token;
     const { token: userToken } = await MockData.getUserToken();
     USER_TOKEN = userToken;
-    const result = await MockData.getExistingTeam('Tottenham Hotspur');
+    const result = await MockData.getExistingTeam('Chelsea');
     TEAM_ID = result._id;
   });
-  it('does not let user without authorization token to remove team ', async () => {
+  it('does not let user without authorization token to remove fixture ', async () => {
     const { body, status } = await request(app).put(`${REMOVE_TEAM}${TEAM_ID}`);
 
     expect(status).toEqual(StatusCodes.UNAUTHORIZED);
     expect(body.status).toEqual(false);
     expect(body.message).toEqual(AUTH_TOKEN_REQUIRED);
   });
-  it('does not let user remove a team with the wrong auth format', async () => {
+  it('does not let user remove a fixture with the wrong auth format', async () => {
     const { body, status } = await request(app)
       .put(`${REMOVE_TEAM}${TEAM_ID}`)
 
@@ -56,14 +56,14 @@ describe('remove team', () => {
     expect(body.status).toEqual(false);
     expect(body.message).toEqual(TEAM_INCOREEC_FORM_ID);
   });
-  it('does not remove a team that does not exist', async () => {
+  it('does not remove a fixture that does not exist', async () => {
     const { body, status } = await request(app)
-      .put(`${REMOVE_TEAM}666514d66621c71bb9f2e7fd`)
+      .put(`${REMOVE_TEAM}66666c8be53df00e9a5f174d`)
       .set('Authorization', `Bearer ${ADMIN_TOKEN}`);
     expect(status).toEqual(StatusCodes.NOT_FOUND);
     expect(body.status).toEqual(false);
   });
-  it('removes a team', async () => {
+  it('removes a fixture', async () => {
     const { body, status } = await request(app)
       .put(`${REMOVE_TEAM}${TEAM_ID}`)
       .set('Authorization', `Bearer ${ADMIN_TOKEN}`);

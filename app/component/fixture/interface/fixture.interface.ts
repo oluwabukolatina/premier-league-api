@@ -8,7 +8,7 @@ export interface FixtureInterface {
   completed: boolean;
   date: Date;
   homeTeam: string;
-  isRemoved: boolean;
+  removed: boolean;
   score: { homeTeam: number; awayTeam: number };
   uniqueLink: string;
 }
@@ -45,5 +45,5 @@ export interface UpdateFixtureInterface {
   score?: { homeTeam?: number; awayTeam?: number } | UnknownInterface;
   stadium?: boolean;
   uniqueLink?: string;
-  isRemoved?: boolean;
+  removed?: boolean;
 }

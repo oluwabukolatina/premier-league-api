@@ -1,11 +1,7 @@
 # PREMIER LEAGUE API
-
 Create an API that serves the latest scores of fixtures of matches in a “**Mock Premier League**”
-
 ## User Types
-
 There should be:
-
 - **Admin accounts** which are used to
   - signup/login
   - manage teams (add, remove, edit, view)
@@ -18,13 +14,11 @@ There should be:
   - view pending fixtures
   - robustly search fixtures/teams
 - Only the search API should be availble to the public.
-
 ## Authentication and Session Management
 1. Use redis as your session store.
-3. Authentication and Authorization for admin and user accounts should be done using `Bearer token` and `JWT`.
+2. Authentication and Authorization for admin and user accounts should be done using `Bearer token` and `JWT`.
 
 ## Tools/Stack
-
 - NodeJs (TypeScript & Express) or Golang
 - MongoDB
 - Redis
@@ -33,14 +27,13 @@ There should be:
 
 
 ## Getting Started
-
 > [Technologies](#technologies-used) &middot; [Testing Tools](#testing-tools) &middot; [Installations](#installations)
 > &middot; [API Endpoints](#api-endpoints) &middot; [Tests](#tests) &middot; [Acknowledgments](#acknowledgments)
 > &middot; [Author](#author)
 
 ## Deployed App
 Application is deployed on GCP. Use public
-URL [https://e](https://e) with API endpoints.
+URL [https://premier-league-api-52kstxoqqa-uc.a.run.app/](https://premier-league-api-52kstxoqqa-uc.a.run.app/) with API endpoints.
 
 ## Technologies Used
 

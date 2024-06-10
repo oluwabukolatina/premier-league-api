@@ -30,7 +30,7 @@ class TeamController {
   };
 
   public getAll = async (request: Request, response: Response) => {
-    const teams = await TeamService.getAll({ isRemoved: false });
+    const teams = await TeamService.getAll({ removed: false });
     return ResponseHandler.OkResponse(response, 'fetched teams', { teams });
   };
 
@@ -48,7 +48,7 @@ class TeamController {
       true,
     );
     await TeamService.update(team._id, {
-      isRemoved: true,
+      removed: true,
     });
     return ResponseHandler.OkResponse(response, 'team removed successfully');
   };
