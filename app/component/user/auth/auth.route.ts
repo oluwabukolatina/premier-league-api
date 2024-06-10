@@ -3,7 +3,7 @@ import AuthController from './auth.controller';
 import * as url from './auth.url';
 import { asyncHandler } from '../../../middleware/async-handler';
 import AuthValidation from './auth.validation';
-import { limiter, rateLimiter } from '../../../middleware/rate-limit';
+import { rateLimiter } from '../../../middleware/rate-limit';
 
 class AuthRoute {
   public authController: AuthController = new AuthController();
