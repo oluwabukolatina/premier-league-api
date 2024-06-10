@@ -1,4 +1,4 @@
-export const TEAM_NOT_FOUND = 'Team does not exist';
+export const TEAM_NOT_FOUND = 'Team Does Not Exist';
 export const TEAM_HAS_PREVIOUSLY_BEEN_REMOVED =
   'Team Has Previously Been Removed';
 export const TEAM_ALREADY_EXISTS = 'Team Already Exists';

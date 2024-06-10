@@ -17,10 +17,8 @@ describe('auth test', () => {
     const { email, password } = await MockData.getSignedUpAdmin();
     SIGNED_UP_ADMIN_EMAIL = email;
     SIGNED_UP_ADMIN_PASSWORD = password;
-    const { email: USER_EMAIL, password: USER_PASSWORD } =
-      await MockData.getSignedUpuSER();
+    const { email: USER_EMAIL } = await MockData.getSignedUpuSER();
     SIGNED_UP_USER_EMAIL = USER_EMAIL;
-    SIGNED_UP_USER_PASSWORD = USER_PASSWORD;
   });
   it('sign up admin', async () => {
     const { body, status } = await request(app)

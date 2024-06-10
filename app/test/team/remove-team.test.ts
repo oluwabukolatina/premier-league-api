@@ -9,9 +9,7 @@ import {
   INCORECT_AUTH_FORMAT,
   USER_NOT_AUTHORIZED,
 } from '../../component/user/auth/auth.message';
-import {
-  TEAM_INCOREEC_FORM_ID,
-} from '../../component/team/team.message';
+import { TEAM_INCOREEC_FORM_ID } from '../../component/team/team.message';
 
 setupTestDatabase();
 describe('remove team', () => {

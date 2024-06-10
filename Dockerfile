@@ -3,8 +3,6 @@ WORKDIR /app
 #ENV HOST 0.0.0.0
 COPY package*.json ./
 COPY tsconfig.json ./
-COPY swagger.json ./
-COPY copyStaticAssets.ts ./
 COPY custom_typings ./
 COPY app ./app
 RUN npm install

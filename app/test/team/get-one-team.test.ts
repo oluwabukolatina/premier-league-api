@@ -43,7 +43,6 @@ describe('get one team', () => {
     expect(body.status).toEqual(false);
     expect(body.message).toEqual(AUTH_TOKEN_REQUIRED);
   });
-
   it('get a team', async () => {
     const { body, status } = await request(app).get(
       `${GET_TEAM}/${EXISTING_TEAM_ID}`,

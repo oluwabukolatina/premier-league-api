@@ -41,13 +41,21 @@ const MockData = {
       .set('Authorization', `Bearer ${token}`);
     return body.data;
   },
+  async getAnotherExistingTeam() {
+    const { token } = await this.getAdminToken();
+    const { body } = await request(app)
+      .post(teamUrl.CREATE_TEAM)
+      .send(TestData.createChelseaTeamPayload())
+      .set('Authorization', `Bearer ${token}`);
+    return body.data;
+  },
   async getRemovedTeam() {
     const { token } = await this.getAdminToken();
     const { body: createTeam } = await request(app)
       .post(teamUrl.CREATE_TEAM)
       .send(TestData.createChelseaTeamPayload())
       .set('Authorization', `Bearer ${token}`);
-    const { body } = await request(app)
+    await request(app)
       .put(`${teamUrl.REMOVE_TEAM}${createTeam.data._id}`)
       .set('Authorization', `Bearer ${token}`);
     return createTeam.data;
